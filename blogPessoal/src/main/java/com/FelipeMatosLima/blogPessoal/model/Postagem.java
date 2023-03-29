@@ -1,4 +1,4 @@
-package model;
+package com.FelipeMatosLima.blogPessoal.model;
 
 
 import jakarta.persistence.*;
