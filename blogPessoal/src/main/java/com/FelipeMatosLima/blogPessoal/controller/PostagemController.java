@@ -32,6 +32,13 @@ public class PostagemController {
                 .map(resposta -> ResponseEntity.ok(resposta))
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @GetMapping("/titulo/{titulo}")
+    public  ResponseEntity<List<Postagem>> getByTitulo(@PathVariable String titulo){
+        return ResponseEntity.ok(postagemRepository.findAllByTituloContainingIgnoreCase(titulo));
+    }
+
+
     // Criação do método POST
     @PostMapping
     public ResponseEntity<Postagem> post (@Valid @RequestBody Postagem postagem) {
@@ -46,7 +53,7 @@ public class PostagemController {
                         .body(postagemRepository.save(postagem)))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
-    // Criação do método DELETE
+
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public void delete (@PathVariable Long id){
@@ -55,6 +62,6 @@ public class PostagemController {
         if(postagem.isEmpty())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
-        postagemRepository.deleteById(id);//Mostra que dados foram excluidos e está vazio
+        postagemRepository.deleteById(id);
     }
 }
