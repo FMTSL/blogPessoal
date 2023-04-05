@@ -2,7 +2,9 @@ package com.FelipeMatosLima.blogPessoal.controller;
 
 import com.FelipeMatosLima.blogPessoal.model.Tema;
 import com.FelipeMatosLima.blogPessoal.repository.TemaRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,5 +28,11 @@ public class TemaController {
         return temaRepository.findById(id)
                 .map(resposta -> ResponseEntity.ok(resposta))
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PostMapping
+    public ResponseEntity<Tema> post(@Valid @RequestBody Tema tema){
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(temaRepository.save(tema));
     }
 }
