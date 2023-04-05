@@ -38,7 +38,6 @@ public class PostagemController {
         return ResponseEntity.ok(postagemRepository.findAllByTituloContainingIgnoreCase(titulo));
     }
 
-
     // Criação do método POST
     @PostMapping
     public ResponseEntity<Postagem> post (@Valid @RequestBody Postagem postagem) {
